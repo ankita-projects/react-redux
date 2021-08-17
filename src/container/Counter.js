@@ -11,6 +11,23 @@ class Counter extends Component {
 					<button onClick={this.props.onIncCounter}>Add</button>
 					<button onClick={this.props.onDecCounter}>Remove</button>
 					<button onClick={this.props.onResetCounter}>Reset</button>
+					<button onClick={this.props.onAddFive}>Add five</button>
+					<button onClick={this.props.onRemoveFive}>Remove five</button>
+					
+				</div>
+				<button onClick={this.props.onStoreResult}>Store the result</button>
+				<div>
+					<h2>Store results</h2>
+					<ul>
+						{this.props.storeResults.map((result) => (
+							<li
+								key={result.id}
+								onClick={() => this.props.onDeleteResult(result.id)}
+							>
+								{result.value}
+							</li>
+						))}
+					</ul>
 				</div>
 			</div>
 		);
@@ -20,6 +37,7 @@ class Counter extends Component {
 const mapStatetoProps = (state) => {
 	return {
 		ctr: state.counter,
+		storeResults: state.results,
 	};
 };
 
@@ -28,6 +46,11 @@ const mapDispateToProps = (dispatch) => {
 		onIncCounter: () => dispatch({ type: actionTypes.INCREMENT }),
 		onDecCounter: () => dispatch({ type: actionTypes.DECREMENT }),
 		onResetCounter: () => dispatch({ type: actionTypes.RESET }),
+		onAddFive: () => dispatch({ type: actionTypes.ADD}),
+		onRemoveFive:() => dispatch({type:actionTypes.REMOVE}),
+		onStoreResult: () => dispatch({type:actionTypes.STORE_RESULT}),
+		onDeleteResult: (payload) =>
+			dispatch({ type: actionTypes.DELETE, payload }),
 	};
 };
 
